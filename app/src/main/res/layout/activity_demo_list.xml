@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.cybersuccess.demo.firstcybersuccessproject.DemoListActivity">
+<Button
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Activity Lifecycle"/>
+    <Button
+    android:id="@+id/btnActCommunication"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Activity Communication"/>
+    <Button
+        android:id="@+id/btnLinearLayoutDemo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Linear Layout Demo"/>
+<Button
+    android:id="@+id/btnLayoutComponets"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Layout Componets"/>
+<Button
+    android:id="@+id/btnRelativerLayoutDemo"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Relative Layout Demo"/>
+
+
+</LinearLayout>

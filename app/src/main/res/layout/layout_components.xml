@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnSimpleTost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Display Simple Toast" />
+
+        <Button
+            android:id="@+id/btnCustomToast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Show Custom Toast" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="startRadioButtonActivity"
+            android:text="Radio/Checkbox Demo" />
+
+        <ToggleButton
+            android:id="@+id/btnToggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AC SWITCH"
+            android:textOff="Off"
+            android:textOn="On" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></Spinner>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ListView with ArrayAdapter" />
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"></ListView>
+
+        <AutoCompleteTextView
+            android:id="@+id/autocompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Custom Base Adapter"/>
+        <ListView
+            android:id="@+id/customListViewBase"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"></ListView>
+        <!--
+        <GridView
+            android:id="@+id/gridLayouts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnWidth="80dp"
+            android:numColumns="auto_fit"
+            android:verticalSpacing="16dp"
+            android:horizontalSpacing="16dp"
+            android:padding="16dp"
+            android:stretchMode="columnWidth"
+            android:gravity="center"></GridView>
+        -->
+
+        <!-- <Button
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:text="Alert Dialog"
+             android:onClick="showAlertDialog"/>
+
+              <ListView
+             android:id="@+id/listViewArrayAdapter"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"></ListView>
+     -->
+
+    </LinearLayout>
+    </ScrollView>
+</LinearLayout>
