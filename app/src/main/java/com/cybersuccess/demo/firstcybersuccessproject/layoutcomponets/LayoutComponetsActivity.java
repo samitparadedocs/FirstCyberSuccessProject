@@ -27,6 +27,8 @@ import com.cybersuccess.demo.firstcybersuccessproject.layoutcomponets.radiobutto
 import com.cybersuccess.demo.firstcybersuccessproject.layoutcomponets.radiobutton.CustomBaseAdapterDemo;
 import com.cybersuccess.demo.firstcybersuccessproject.layoutcomponets.radiobutton.RadioButtonDemoActivity;
 
+import java.util.ArrayList;
+
 /**
  * Created by Samit on 5/12/2018.
  */
@@ -49,23 +51,25 @@ public class LayoutComponetsActivity extends AppCompatActivity implements View.O
     String[] language = {"C", "C++", "Java", ".NET", "iPhone", "Android", "ASP.NET", "PHP"};
 
 
-    String[] maintitle ={
-            "Title 1","Title 2",
-            "Title 3","Title 4",
+    String[] maintitle = {
+            "Title 1", "Title 2",
+            "Title 3", "Title 4",
             "Title 5",
     };
 
-    String[] subtitle ={
-            "Sub Title 1","Sub Title 2",
-            "Sub Title 3","Sub Title 4",
+    String[] subtitle = {
+            "Sub Title 1", "Sub Title 2",
+            "Sub Title 3", "Sub Title 4",
             "Sub Title 5",
     };
 
-    Integer[] imgid={
-            R.drawable.ic_face_black_24dp,R.drawable.ic_face_black_24dp,
-            R.drawable.ic_face_black_24dp,R.drawable.ic_face_black_24dp,
+    Integer[] imgid = {
+            R.drawable.ic_face_black_24dp, R.drawable.ic_face_black_24dp,
+            R.drawable.ic_face_black_24dp, R.drawable.ic_face_black_24dp,
             R.drawable.ic_face_black_24dp,
     };
+
+    ArrayList<Country> countriesList=new ArrayList<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,28 +78,29 @@ public class LayoutComponetsActivity extends AppCompatActivity implements View.O
         btnCustomToast = findViewById(R.id.btnCustomToast);
         toggleButton = findViewById(R.id.btnToggle);
         spinner = findViewById(R.id.spinner);
-       // gridview = findViewById(R.id.gridLayouts);
+        // gridview = findViewById(R.id.gridLayouts);
 
 
         btnSimpleToast.setOnClickListener(this);
         btnCustomToast.setOnClickListener(this);
         toggleButton.setOnClickListener(this);
-       ArrayAdapter arrayAdapter=new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,coutries);
-spinner.setAdapter(arrayAdapter);
-spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, coutries);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        Toast.makeText(getApplicationContext(), "Selected coutry IS:" + coutries[i], Toast.LENGTH_SHORT).show();
-    }
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getApplicationContext(), "Selected coutry IS:" + coutries[i], Toast.LENGTH_SHORT).show();
+            }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
-    }
-});
-        listView=findViewById(R.id.listView);
-        CustomArrayAdapterDemo customArrayAdapterDemo=new CustomArrayAdapterDemo(this,maintitle,subtitle,imgid);
+            }
+        });
+        listView = findViewById(R.id.listView);
+        CustomArrayAdapterDemo customArrayAdapterDemo = new CustomArrayAdapterDemo(this, maintitle, subtitle, imgid);
+
         listView.setAdapter(customArrayAdapterDemo);
         /*ArrayAdapter adaapterListView=new ArrayAdapter(this,android.R.layout.simple_list_item_1,language);
         listView.setAdapter(adaapterListView);
@@ -133,9 +138,18 @@ spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
     /*CustomBaseAdapter customBaseAdapter=new CustomBaseAdapter(this,maintitle);
     arrayAdapterList.setAdapter(customBaseAdapter);
     */
-        customListViewBase=findViewById(R.id.customListViewBase);
+        customListViewBase = findViewById(R.id.customListViewBase);
 
-        CustomBaseAdapterDemo customBaseAdapterDemo=    new CustomBaseAdapterDemo(this,maintitle);
+        Country c1=new Country(1,"India","Desc about india",R.drawable.ic_face_black_24dp);
+        Country c2=new Country(2,"Pakistan","Desc about Pakistan",R.drawable.ic_face_black_24dp);
+        Country c3=new Country(3,"USA","Desc about USA",R.drawable.ic_face_black_24dp);
+        Country c4=new Country(4,"China","Desc about China",R.drawable.ic_face_black_24dp);
+        countriesList.add(c1);
+        countriesList.add(c2);
+        countriesList.add(c3);
+        countriesList.add(c4);
+
+        CustomBaseAdapterDemo customBaseAdapterDemo = new CustomBaseAdapterDemo(this, countriesList);
         customListViewBase.setAdapter(customBaseAdapterDemo);
     }
 
@@ -170,10 +184,10 @@ spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
         View layout = li.inflate(R.layout.customtoast,
                 (ViewGroup) findViewById(R.id.custom_toast_layout));
 
-     TextView textView= layout.findViewById(R.id.custom_toast_message);
+        TextView textView = layout.findViewById(R.id.custom_toast_message);
         textView.setText("Custom message for textView");
         textView.setTextColor(R.color.colorAccent);
-     //Creating the Toast object
+        //Creating the Toast object
         Toast toast = new Toast(getApplicationContext());
         toast.setDuration(Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
@@ -202,6 +216,6 @@ spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
     }
 
     public void startRadioButtonActivity(View view) {
-      startActivity(new Intent(this, RadioButtonDemoActivity.class));
+        startActivity(new Intent(this, RadioButtonDemoActivity.class));
     }
 }

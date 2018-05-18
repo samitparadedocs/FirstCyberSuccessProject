@@ -9,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cybersuccess.demo.firstcybersuccessproject.R;
+import com.cybersuccess.demo.firstcybersuccessproject.layoutcomponets.Country;
+
+import java.util.ArrayList;
 
 /**
  * Created by Samit on 5/17/2018.
@@ -16,20 +19,20 @@ import com.cybersuccess.demo.firstcybersuccessproject.R;
 
 public class CustomBaseAdapterDemo extends BaseAdapter {
     Activity context;
-    String[] titles;
-    public CustomBaseAdapterDemo(Activity context,String[] titles){
+    ArrayList coutriesList;
+    public CustomBaseAdapterDemo(Activity context,ArrayList coutriessList){
         this.context=context;
-        this.titles=titles;
+        this.coutriesList =coutriessList;
     }
 
     @Override
     public int getCount() {
-        return titles.length;
+        return coutriesList.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return titles[i];
+        return coutriesList.get(i);
 
     }
 
@@ -46,7 +49,10 @@ public class CustomBaseAdapterDemo extends BaseAdapter {
         ImageView imageView = (ImageView) childView.findViewById(R.id.icon);
         TextView subtitleText = (TextView) childView.findViewById(R.id.subtitle);
 
-        titleText.setText(titles[i]);
+        Country country= (Country) coutriesList.get(i);
+        titleText.setText(country.getCountryName());
+        subtitleText.setText(country.getDetails());
+        imageView.setImageResource(country.getImageId());
         return childView;
     }
 }
