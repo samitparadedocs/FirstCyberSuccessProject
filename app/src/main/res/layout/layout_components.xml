@@ -67,7 +67,6 @@
             android:id="@+id/customListViewBase"
             android:layout_width="match_parent"
             android:layout_height="400dp"></ListView>
-        <!--
         <GridView
             android:id="@+id/gridLayouts"
             android:layout_width="match_parent"
@@ -79,9 +78,8 @@
             android:padding="16dp"
             android:stretchMode="columnWidth"
             android:gravity="center"></GridView>
-        -->
 
-        <!-- <Button
+         <Button
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:text="Alert Dialog"
@@ -91,8 +89,12 @@
              android:id="@+id/listViewArrayAdapter"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"></ListView>
-     -->
+
 
     </LinearLayout>
+
+
     </ScrollView>
+
+
 </LinearLayout>

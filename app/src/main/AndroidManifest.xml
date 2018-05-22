@@ -23,7 +23,15 @@
         <activity android:name=".layoutcomponets.LayoutComponetsActivity" />
         <activity android:name=".layoutdata.LinearLayoutDemo" />
         <activity android:name=".layoutdata.RelativeLayoutDemoAct" />
-        <activity android:name=".layoutcomponets.radiobutton.RadioButtonDemoActivity"></activity>
+        <activity android:name=".layoutcomponets.radiobutton.RadioButtonDemoActivity" />
+        <activity android:name=".MenusDemoActivity" />
+        <activity android:name=".picker.PickerDemoActivity" />
+        <activity android:name=".service.ServiceDemoActivity" />
+
+        <service
+            android:name=".service.MyService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
