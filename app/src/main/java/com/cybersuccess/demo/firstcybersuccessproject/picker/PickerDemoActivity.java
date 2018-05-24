@@ -1,10 +1,7 @@
 package com.cybersuccess.demo.firstcybersuccessproject.picker;
 
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -28,8 +25,8 @@ public class PickerDemoActivity extends AppCompatActivity {
     Button selectTimebtn;
     TimePicker timePicker1;
 
-    DatePickerDialog datePickerDialog;
-    @Override
+     DatePickerDialog datePickerDialog;
+     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_picker_demo);
@@ -44,7 +41,8 @@ public class PickerDemoActivity extends AppCompatActivity {
         displayDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textview1.setText(getCurrentDate());
+                String selecteddate=getCurrentDate();
+                textview1.setText(selecteddate);
             }
 
         });
@@ -56,33 +54,50 @@ public class PickerDemoActivity extends AppCompatActivity {
         selectTimebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String currentTime = "Current Time: " + timePicker1.getCurrentHour() + ":" + timePicker1.getCurrentMinute();
      textView2.setText(currentTime);
             }
         });
 
-        //Use the current date as the default date in the date picker
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
-
-        //Create a new DatePickerDialog instance and return it
-
-        datePickerDialog= new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        Button openDateAndTimePickerDialog=findViewById(R.id.openDatePickerDialog);
+        openDateAndTimePickerDialog.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                Toast.makeText(PickerDemoActivity.this,"Date is"+i+"/"+i1+"/"+i2,Toast.LENGTH_SHORT).show();
+            public void onClick(View view) {
+                openDatePickerdialog();
             }
-        }, year, month, day);
+        });
 
-        //datePickerDialog.show();
+         Button openTimePickerDialog=findViewById(R.id.openTimePickerDialog);
 
+         openTimePickerDialog.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 openTimePickerdialog();
+             }
+         });
+
+        /*
+
+
+       //refer below link: https://www.journaldev.com/9652/android-progressdialog-example
+
+        final ProgressDialog progressDialog=new ProgressDialog(this);
+        progressDialog.setTitle("Title");
+        progressDialog.setMessage("Message");
+        progressDialog.setMax(100);
+
+        progressDialog.incrementProgressBy(30);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.show();*/
+    }
+
+    private void openTimePickerdialog() {
         //Time picker Dialog
 
         // Get Current Time
         final Calendar cal = Calendar.getInstance();
-       int  mHour = cal.get(Calendar.HOUR_OF_DAY);
+        int  mHour = cal.get(Calendar.HOUR_OF_DAY);
         int mMinute = cal.get(Calendar.MINUTE);
 
         // Launch Time Picker Dialog
@@ -97,27 +112,43 @@ public class PickerDemoActivity extends AppCompatActivity {
                 }, mHour, mMinute, false);
 
 
-        //timePickerDialog.show();
-/*refer below link: https://www.journaldev.com/9652/android-progressdialog-example*/
+        timePickerDialog.show();
 
-        final ProgressDialog progressDialog=new ProgressDialog(this);
-        progressDialog.setTitle("Title");
-        progressDialog.setMessage("Message");
-        progressDialog.setMax(100);
-
-        progressDialog.incrementProgressBy(30);
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progressDialog.show();
 
     }
 
+    private void openDatePickerdialog() {
+            //Use the current date as the default date in the date picker
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            //Create a new DatePickerDialog instance and return it
+
+            datePickerDialog= new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                    Toast.makeText(PickerDemoActivity.this,"Date is"+i+"/"+i1+"/"+i2,Toast.LENGTH_SHORT).show();
+                }
+            }, year, month, day);
+
+            datePickerDialog.show();
+
+        }
+
     public String getCurrentDate() {
+
         StringBuilder builder = new StringBuilder();
-        builder.append("Current Date: ");
+        builder.append("Current date of system:");
+        builder.append(picker.getMonth()+1+"/");
+        builder.append(picker.getDayOfMonth()+"/");
+        builder.append(picker.getYear());
+       /* builder.append("Current Date: ");
         builder.append((picker.getMonth() + 1) + "/");//month is 0 based
         builder.append(picker.getDayOfMonth() + "/");
         builder.append(picker.getYear());
-        return builder.toString();
+       */ return builder.toString();
     }
 
     @Override

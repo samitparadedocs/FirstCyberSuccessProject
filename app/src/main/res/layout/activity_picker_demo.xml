@@ -47,5 +47,16 @@
         android:layout_height="wrap_content"
         android:id="@+id/selectTimeBtn"
         android:text="Select Time"/>
+        <Button
+            android:text="DatePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/openDatePickerDialog"/>
+        <Button
+            android:text="Time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/openTimePickerDialog"/>
+
     </LinearLayout>
 </ScrollView>

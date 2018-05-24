@@ -49,5 +49,15 @@
         android:layout_height="wrap_content"
         android:text="ServiceDemo"
         android:onClick="startServiceDemoActivity"/>
+ <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Shared Prefernce Demo"
+        android:onClick="startSharedPreferenceActivity"/>
+<Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sqlite Demo"
+        android:onClick="startSqliteDemoActivity"/>
 
 </LinearLayout>

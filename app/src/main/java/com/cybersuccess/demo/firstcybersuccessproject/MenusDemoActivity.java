@@ -1,5 +1,10 @@
 package com.cybersuccess.demo.firstcybersuccessproject;
 
+import android.content.ContentValues;
+import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
+import android.provider.ContactsContract;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -106,12 +111,39 @@ public class MenusDemoActivity extends AppCompatActivity {
                 break;
             case R.id.logout:
                 Toast.makeText(this, "Logout option Clicked", Toast.LENGTH_SHORT).show();
-
+             showAlertDialog();
                 break;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void showAlertDialog() {
+
+
+        AlertDialog.Builder builder=new AlertDialog.Builder(this)
+                .setTitle("Confirm Logout")
+                .setMessage("Are you really want to logout this sessoin?")
+            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+              Toast.makeText(MenusDemoActivity.this,"Positive clicked",Toast.LENGTH_SHORT).show();
+              finish();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(MenusDemoActivity.this,"Negative clicked",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        builder.setNeutralButton("Reset/Neutral",null);
+        AlertDialog alertDialog=builder.create();
+
+        alertDialog.show();
+    }
+
 
 
 }

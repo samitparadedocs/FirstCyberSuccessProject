@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -31,7 +32,17 @@
         <service
             android:name=".service.MyService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity
+            android:name=".sqlite.SqliteDemoActivity"
+            android:label="@string/title_activity_sqlite_demo"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".sharedpreference.SharedPrefferenceDemoActivity" />
+        <activity
+            android:name=".sqlite.TempFloatingButtonActivty"
+            android:label="@string/title_activity_temp_floating_button_activty"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

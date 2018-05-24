@@ -1,8 +1,10 @@
 package com.cybersuccess.demo.firstcybersuccessproject;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +16,12 @@ import com.cybersuccess.demo.firstcybersuccessproject.layoutdata.LinearLayoutDem
 import com.cybersuccess.demo.firstcybersuccessproject.layoutdata.RelativeLayoutDemoAct;
 import com.cybersuccess.demo.firstcybersuccessproject.picker.PickerDemoActivity;
 import com.cybersuccess.demo.firstcybersuccessproject.service.ServiceDemoActivity;
+import com.cybersuccess.demo.firstcybersuccessproject.sharedpreference.SharedPrefferenceDemoActivity;
+import com.cybersuccess.demo.firstcybersuccessproject.sqlite.Contact;
+import com.cybersuccess.demo.firstcybersuccessproject.sqlite.DatabaseHelper;
+import com.cybersuccess.demo.firstcybersuccessproject.sqlite.SqliteDemoActivity;
+
+import java.util.ArrayList;
 
 public class DemoListActivity extends AppCompatActivity implements View.OnClickListener {
     Button activityCommunication;
@@ -41,8 +49,26 @@ public class DemoListActivity extends AppCompatActivity implements View.OnClickL
        /* MyAlertDialogFragment alertDialogFragment = new MyAlertDialogFragment();
         alertDialogFragment.show(getFragmentManager(), "fragment_edit_name");
 */
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("MyPref", 0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("key_name1", true); // Storing boolean - true/false
+        editor.putString("key_name2", "Ket 2 string"); // Storing string
+        editor.putInt("key_name3", 10); // Storing integer
+        editor.putFloat("key_name4", (float) 11.55); // Storing float
+        editor.putLong("key_name5", 100000111); // Storing long
 
+        editor.commit(); // commit changes
 
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("key1" + sharedPreferences.getBoolean("key_name1", false));
+        stringBuilder.append("key2" + sharedPreferences.getString("key_name2", "dummy"));
+        stringBuilder.append("key3" + sharedPreferences.getInt("key_name3", 1));
+        stringBuilder.append("key4" + sharedPreferences.getFloat("key_name4", (float) 1.001));
+        stringBuilder.append("key5" + sharedPreferences.getLong("key_name5", 10001));
+        Log.d("pref values", stringBuilder.toString());
+
+        editor.remove("name"); // will delete key name
+        editor.remove("email"); // will delete key email
     }
 
     @Override
@@ -100,7 +126,7 @@ public class DemoListActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void startServiceDemoActivity(View view) {
-          startActivity(new Intent( this, ServiceDemoActivity.class));
+        startActivity(new Intent(this, ServiceDemoActivity.class));
 
 /*    //REFER LINK: https://bhavyanshu.me/tutorials/create-custom-alert-dialog-in-android/08/20/2015
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -125,5 +151,16 @@ public class DemoListActivity extends AppCompatActivity implements View.OnClickL
         AlertDialog b = dialogBuilder.create();
         b.show();
 */
+    }
+
+
+    public void startSharedPreferenceActivity(View view) {
+        startActivity(new Intent(this, SharedPrefferenceDemoActivity.class));
+
+    }
+
+    public void startSqliteDemoActivity(View view) {
+        startActivity(new Intent(this, SqliteDemoActivity.class));
+
     }
 }

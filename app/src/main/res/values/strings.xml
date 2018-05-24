@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FirstCyberSuccessProject</string>
+    <string name="title_activity_sqlite_demo">SqliteDemoActivity</string>
+    <string name="title_activity_temp_floating_button_activty">TempFloatingButtonActivty</string>
 </resources>
