@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import com.cybersuccess.demo.firstcybersuccessproject.R;
 
@@ -41,7 +42,13 @@ public class ContactAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
+
        View view1= context.getLayoutInflater().inflate(R.layout.contact_list,viewGroup,false);
+        TextView name=view1.findViewById(R.id.name);
+        TextView number=view1.findViewById(R.id.contactNumber);
+        Contact contact=contacts.get(i);
+        name.setText(contact.getName());
+        number.setText(contact.getContactNumber());
         return view1;
     }
 }

@@ -11,6 +11,7 @@ public class Contact {
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_NUMBER = "contact_number";
     public static final String COLUMN_TIMESTAMP = "timestamp";
+    public static final String COLUMN_Alterbante = "altenate number";
     private int id;
     private String name;
     private String contactNumber;
@@ -23,6 +24,7 @@ public class Contact {
             +COLUMN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT,"
             +COLUMN_NAME+" TEXT,"
             +COLUMN_NUMBER+" TEXT, "
+            +COLUMN_Alterbante+" TEXT, "
             + COLUMN_TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP"
             + ")";
 

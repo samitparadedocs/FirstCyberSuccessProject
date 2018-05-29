@@ -17,7 +17,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Database Name
     private static final String DATABASE_NAME = "contacts_db";
@@ -26,6 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
@@ -39,6 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + Contact.TABLE_NAME);
+        Log.d("Onupgrade Db", "" + Contact.CREATE_TABLE);
 
         // Create tables again
         onCreate(db);
@@ -53,8 +55,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         // `id` and `timestamp` will be inserted automatically.
         // no need to add them
-        values.put(Contact.COLUMN_NAME, contactName);
         values.put(Contact.COLUMN_NUMBER, contactNumber);
+        values.put(Contact.COLUMN_NAME, contactName);
 
         // insert row
         long id = db.insert(Contact.TABLE_NAME, null, values);
@@ -68,7 +70,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Contact getContact(long id) {
         // get readable database as we are not inserting anything
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = getReadableDatabase();
 
         Cursor cursor = db.query(Contact.TABLE_NAME,
                 new String[]{Contact.COLUMN_ID, Contact.COLUMN_NAME, Contact.COLUMN_NUMBER, Contact.COLUMN_TIMESTAMP},
@@ -90,8 +92,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return contact;
     }
 
-    public List<Contact> getAllNotes() {
-        List<Contact> contacts = new ArrayList<>();
+    public ArrayList<Contact> getAllContacts() {
+        ArrayList<Contact> contacts = new ArrayList<>();
 
         // Select All Query
         String selectQuery = "SELECT  * FROM " + Contact.TABLE_NAME + " ORDER BY " +
@@ -133,7 +135,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return count;
     }
 
-    public int updateNote(Contact contact) {
+    public int updateContact(Contact contact) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -145,7 +147,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 new String[]{String.valueOf(contact.getId())});
     }
 
-    public void deleteNote(Contact contact) {
+    public void deleteContact(Contact contact) {
+
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(Contact.TABLE_NAME, Contact.COLUMN_ID + " = ?",
                 new String[]{String.valueOf(contact.getId())});

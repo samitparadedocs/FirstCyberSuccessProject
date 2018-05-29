@@ -1,6 +1,8 @@
 package com.cybersuccess.demo.firstcybersuccessproject.sqlite;
 
+import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,11 +24,17 @@ import com.cybersuccess.demo.firstcybersuccessproject.R;
 import java.util.ArrayList;
 
 public class SqliteDemoActivity extends AppCompatActivity {
-    private DatabaseHelper db;
+    private DatabaseHelper dbHelper;
 
     ListView listView;
     ContactAdapter contactAdapter;
     ArrayList<Contact> contactList = new ArrayList<>();
+    EditText nameSql, numberSql;
+    Button addSql, displaySql;
+
+    long previousInsertedId = 0;
+    Contact contactTobeEdited;
+    int selectedPostionFromList = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,48 +43,163 @@ public class SqliteDemoActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
+        nameSql = findViewById(R.id.nameSql);
+        numberSql = findViewById(R.id.numberSql);
+        addSql = findViewById(R.id.addDataSql);
+        displaySql = findViewById(R.id.displaySql);
+
+
         listView = findViewById(R.id.contactList);
-        contactAdapter = new ContactAdapter(contactList, this);
-        listView.setAdapter(contactAdapter);
+        dbHelper = new DatabaseHelper(this);
+
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-               showAddContacteDialog(false, null, -1);
+                showAddContacteDialog(false, null, -1);
             }
         });
-        db = new DatabaseHelper(this);
+
+        addSql.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /*String name="'samit'";
+                String qury=" select * from xyz where first_name='"+name+"'";*/
+                if (addSql.getText().equals("Add Data")) {
+                    previousInsertedId = dbHelper.insertContact(nameSql.getText().toString(), numberSql.getText().toString());
+                } else if (addSql.getText().equals("Edit Contact")) {
+
+                    SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
+
+                    ContentValues values = new ContentValues();
+                    values.put(Contact.COLUMN_NAME, nameSql.getText().toString());
+                    values.put(Contact.COLUMN_NUMBER, numberSql.getText().toString());
+
+                    // updating row
+                    long id = sqLiteDatabase.update(Contact.TABLE_NAME, values,
+                            Contact.COLUMN_ID + " = ?",
+                            new String[]{String.valueOf(contactTobeEdited.getId())});
+                    sqLiteDatabase.close();
+                   /* Contact CurrentlyUpdatedContact = dbHelper.getContact(id);
+                   contactList.add(CurrentlyUpdatedContact);
+                    contactList.remove(selectedPostionFromList);*/
+                    contactList.clear();
+                    contactAdapter.notifyDataSetChanged();
+
+                    contactList = dbHelper.getAllContacts();
+                    contactAdapter.notifyDataSetChanged();
+                }
+                nameSql.setText("");
+                numberSql.setText("");
+
+
+
+               /* // get writable database as we want to write data
+                SQLiteDatabase sqlitedb = dbHelper.getWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                // `id` and `timestamp` will be inserted automatically.
+                // no need to add them
+                values.put(Contact.COLUMN_NUMBER, numberSql.getText().toString());
+                values.put(Contact.COLUMN_NAME, nameSql.getText().toString());
+
+                // insert row
+                long id = sqlitedb.insert(Contact.TABLE_NAME, null, values);
+
+                // close dbHelper connection
+                previousInsertedId = id;
+                sqlitedb.close();
+*/
+            }
+        });
+        displaySql.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dbHelper.getContact(previousInsertedId);
+
+                /*SQLiteDatabase readbledb = dbHelper.getReadableDatabase();
+
+                Cursor cursor = readbledb.query(Contact.TABLE_NAME,
+                        new String[]{Contact.COLUMN_ID, Contact.COLUMN_NAME, Contact.COLUMN_NUMBER, Contact.COLUMN_TIMESTAMP},
+                        Contact.COLUMN_ID + "=?",
+                        new String[]{String.valueOf(previousInsertedId)}, null, null, null, null);
+
+                if (cursor != null) {
+                    cursor.moveToFirst();
+                    // prepare note object
+                    int id_primary = cursor.getInt(cursor.getColumnIndex(Contact.COLUMN_ID));
+                    String name = cursor.getString(cursor.getColumnIndex(Contact.COLUMN_NAME));
+                    String number = cursor.getString(cursor.getColumnIndex(Contact.COLUMN_NUMBER));
+                    String timestap = cursor.getString(cursor.getColumnIndex(Contact.COLUMN_TIMESTAMP));
+
+                    Contact contact = new Contact(id_primary, name, number, timestap);
+                    contactList.add(contact);
+                    contactAdapter.notifyDataSetChanged();
+                    // close the dbHelper connection
+                    cursor.close();
+
+                } else {
+                    Toast.makeText(SqliteDemoActivity.this, "No result found", Toast.LENGTH_SHORT).show();
+                }*/
+            }
+        });
+        contactList = dbHelper.getAllContacts();
+        contactAdapter = new ContactAdapter(contactList, this);
+        listView.setAdapter(contactAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //below code for update sqlite data for selected item from list
+                /*Toast.makeText(SqliteDemoActivity.this, "postion clicked" + i, Toast.LENGTH_SHORT).show();
+                contactTobeEdited = contactList.get(i);
+                nameSql.setText(contactTobeEdited.getName());
+                numberSql.setText(contactTobeEdited.getContactNumber());
+                addSql.setText("Edit Contact");
+                selectedPostionFromList = i;*/
+
+             Contact   contactTobedeted = contactList.get(i);
+                dbHelper.deleteContact(contactTobedeted);
+                contactList.remove(i);
+                contactAdapter.notifyDataSetChanged();
+
+
+            }
+        });
+
+
     }
 
 
     /**
-     * Inserting new Contact in db
+     * Inserting new Contact in dbHelper
      * and refreshing the list
      */
     private void createContact(String contactName, String contactNumber) {
 
-        // inserting note in db and getting
+        // inserting note in dbHelper and getting
         // newly inserted note id
-        long id = db.insertContact(contactName,contactNumber);
+        long id = dbHelper.insertContact(contactName, contactNumber);
 
-        // get the newly inserted note from db
-        Contact n = db.getContact(id);
+        // get the newly inserted note from dbHelper
+        Contact n = dbHelper.getContact(id);
 
         if (n != null) {
             // adding new note to array list at 0 position
             contactList.add(0, n);
 
             // refreshing the list
-             contactAdapter.notifyDataSetChanged();
+            contactAdapter.notifyDataSetChanged();
 
             // toggleEmptyNotes();
         }
     }
 
     /**
-     * Updating Contact in db and updating
+     * Updating Contact in dbHelper and updating
      * item in the list by its position
      */
     private void updateNote(String note, int position) {
@@ -82,8 +207,8 @@ public class SqliteDemoActivity extends AppCompatActivity {
         // updating note text
         n.setName(note);
 
-        // updating note in db
-        db.updateNote(n);
+        // updating note in dbHelper
+        dbHelper.updateContact(n);
 
         // refreshing the list
         contactList.set(position, n);
@@ -97,8 +222,8 @@ public class SqliteDemoActivity extends AppCompatActivity {
      * item from the list by its position
      */
     private void deleteNote(int position) {
-        // deleting the note from db
-        db.deleteNote(contactList.get(position));
+        // deleting the note from dbHelper
+        dbHelper.deleteContact(contactList.get(position));
 
         // removing the note from the list
         contactList.remove(position);
@@ -185,10 +310,10 @@ public class SqliteDemoActivity extends AppCompatActivity {
                 // check if user updating note
                 if (shouldUpdate && contact != null) {
                     // update note by it's id
-                    //updateNote(inputNote.getText().toString(), position);
+                    //updateContact(inputNote.getText().toString(), position);
                 } else {
                     // create new note
-                    createContact(inputContactName.getText().toString(),inputContactNumber.getText().toString());
+                    createContact(inputContactName.getText().toString(), inputContactNumber.getText().toString());
                 }
             }
         });

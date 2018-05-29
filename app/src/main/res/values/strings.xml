@@ -2,4 +2,7 @@
     <string name="app_name">FirstCyberSuccessProject</string>
     <string name="title_activity_sqlite_demo">SqliteDemoActivity</string>
     <string name="title_activity_temp_floating_button_activty">TempFloatingButtonActivty</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
