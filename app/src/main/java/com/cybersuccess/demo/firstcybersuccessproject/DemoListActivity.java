@@ -69,6 +69,8 @@ public class DemoListActivity extends AppCompatActivity implements View.OnClickL
 
         editor.remove("name"); // will delete key name
         editor.remove("email"); // will delete key email
+
+
     }
 
     @Override

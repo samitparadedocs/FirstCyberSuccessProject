@@ -44,6 +44,8 @@
             android:label="@string/title_activity_temp_floating_button_activty"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".FragmentDemoActivity"></activity>
+        <activity android:name=".viewpager.ActViewpagerDemo"></activity>
+        <activity android:name=".viewpager.ActScreenSlidePagerTablayout"></activity>
     </application>
 
 </manifest>
